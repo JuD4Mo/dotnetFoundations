@@ -1,0 +1,25 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+*.csproj.user
+*.cache
+*.dbmdl
+*.log
+*.nupkg
+*.snk
+.vs/
+[Dd]ebug/
+[Rr]elease/
+
+## JetBrains Rider
+.idea/
+*.sln.DotSettings.user
+
+## VS Code
+.vscode/
+
+## OS
+.DS_Store
+Thumbs.db
