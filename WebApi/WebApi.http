@@ -1,11 +1,44 @@
 @WebApi_HostAddress = http://localhost:5206
 
-GET {{WebApi_HostAddress}}/todos/
+GET {{WebApi_HostAddress}}/api/persons/00000000-0000-0000-0000-000000000000
 Accept: application/json
 
 ###
 
-GET {{WebApi_HostAddress}}/todos/1
+POST {{WebApi_HostAddress}}/api/persons
+Content-Type: application/json
+
+{
+  "code": "ABC123",
+  "firstName": "Juan",
+  "lastName": "Munoz",
+  "email": "juan@gmail.com",
+  "phoneNumber":"3108255006"
+}
+
+###
+
+GET {{WebApi_HostAddress}}/api/persons
 Accept: application/json
 
 ###
+
+PUT {{WebApi_HostAddress}}/api/persons/149114a1-0061-4fcc-a690-7e351f537ad2
+Content-Type: application/json
+
+{
+  "id": "149114a1-0061-4fcc-a690-7e351f537ad2",
+  "firstName": "Juancho",
+  "lastName": "Munoz O",
+  "email": "davidjuan.27@gmail.com",
+  "phoneNumber": "3158255006"
+}
+
+###
+
+DELETE {{WebApi_HostAddress}}/api/persons/149114a1-0061-4fcc-a690-7e351f537ad2
+
+###
+
+GET {{WebApi_HostAddress}}/api/persons/code/ABC122
+Accept: application/json

@@ -2,7 +2,7 @@
 
 namespace Domain;
 
-public class PersonEntity {
+public class  PersonEntity {
   public Guid Id {get; private set;}
   public string Code {get; private set;} = string.Empty;
   public string FirstName {get; private set; } = string.Empty;
@@ -58,11 +58,11 @@ public class PersonEntity {
       throw new ArgumentException("El nombre no puede estar vacío.", nameof(firstName));
     }
 
-    if (FirstName.Length < 2) {
+    if (firstName.Length < 2) {
       throw new ArgumentException("El nombre debe tener al menos 2 caracteres.", nameof(firstName));
     }
 
-    if (FirstName.Length > 50) {
+    if (firstName.Length > 50) {
       throw new ArgumentException("El nombre no puede tener más de 50 caracteres.", nameof(firstName));
     }
   }
@@ -86,11 +86,11 @@ public class PersonEntity {
       throw new ArgumentException("El email no puede estar vacío.", nameof(email));
     }
 
-    if (FirstName.Length < 2) {
-      throw new ArgumentException("El nombre debe tener al menos 2 caracteres.", nameof(email));
+    if (email.Length < 2) {
+      throw new ArgumentException("El email debe tener al menos 2 caracteres.", nameof(email));
     }
 
-    if (FirstName.Length > 100) {
+    if (email.Length > 100) {
       throw new ArgumentException("El email no puede tener más de 100 caracteres.", nameof(email));
     }
 
@@ -109,7 +109,7 @@ public class PersonEntity {
       throw new ArgumentException("El número de teléfono debe tener al menos 7 caracteres.", nameof(phoneNumber));
     }
 
-    if (FirstName.Length > 15) {
+    if (phoneNumber.Length > 15) {
       throw new ArgumentException("El número de teléfono no puede tener más de 15 caracteres.", nameof(phoneNumber));
     }
   }

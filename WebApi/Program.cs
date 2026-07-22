@@ -1,12 +1,20 @@
 using System.Text.Json.Serialization;
 using Application.UseCases.Persons;
+using Data;
+using Domain;
+using Domain.Abstractions;
 using Microsoft.AspNetCore.Http.HttpResults;
+using WebApi.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("db connection string not found");
+
+// Extend methods
+builder.Services.AddRepositories(connectionString);
 
 builder.Services.AddScoped<CreatePersonUseCase>();
 builder.Services.AddScoped<GetPersonByIdUseCase>();
@@ -23,5 +31,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapPersonsEndpoints();
 
 app.Run();
