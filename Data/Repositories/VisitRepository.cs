@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data
 {
-  public class VisitRepository: IRepository<VisitEntity, Guid>
+  public class VisitRepository: IRepository<VisitEntity, Guid>, IVisitRepository<VisitEntity>
   {
     private readonly ApplicationDbContext _context;
 
@@ -62,6 +62,35 @@ namespace Data
     public async Task<int> SaveChangesAsync()
     {
       return await _context.SaveChangesAsync();
+    }
+
+    // IVisitRepository
+
+    public async Task<bool> HasActiveVisitAsync(Guid personId)
+    {
+      return await _context.Visits.AnyAsync(v => v.PersonId == personId && v.ExitTime == null);
+    }
+
+    public async Task<VisitEntity?> GetActiveVisitByPersonCodeAsync(string personCode)
+    {
+      return await _context.Visits.Include(v => v.Person)
+      .FirstOrDefaultAsync(v => v.Person != null && v.Person.Code.ToUpper() == personCode.ToUpper() && v.ExitTime == null);
+    }
+
+    public async Task<IEnumerable<VisitEntity>> GetActiveVisitsAsync()
+    {
+      return await _context.Visits.Include(v => v.Person)
+      .Where(v => v.ExitTime == null)
+      .OrderBy(v => v.EntryTime)
+      .ToListAsync();
+    }
+
+    public async Task<IEnumerable<VisitEntity>> GetVisitsByPersonIdAsync(Guid personId)
+    {
+      return await _context.Visits.Include(v => v.Person)
+      .Where(v => v.PersonId == personId)
+      .OrderByDescending(v => v.EntryTime)
+      .ToListAsync();
     }
   }
 }
