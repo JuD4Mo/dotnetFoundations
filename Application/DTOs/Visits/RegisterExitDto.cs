@@ -2,7 +2,7 @@
 {
   public class RegisterExitDto
   {
-    public Guid? Id {get; set; }
+    public Guid? VisitId {get; set; }
     public string? Code {get; set; }
     public DateTime? ExitTime {get; set; }
   }
