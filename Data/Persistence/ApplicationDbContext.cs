@@ -41,7 +41,7 @@ namespace Data
         entity.Property(e => e.Id).IsRequired().ValueGeneratedOnAdd();
         entity.Property(e => e.PersonId).IsRequired();
         entity.Property(e => e.EntryTime).IsRequired();
-        entity.Property(e => e.ExitTime).IsRequired();
+        entity.Property(e => e.ExitTime).IsRequired(false);
 
         entity.Ignore(e => e.isActive);
         entity.Ignore(e => e.Duration);
@@ -53,8 +53,8 @@ namespace Data
         entity.HasIndex(e => e.EntryTime);
         entity.HasIndex(e => new {e.PersonId, e.ExitTime}); //composite index
 
-        entity.Property<DateTime>("CreatedAt").IsRequired().HasDefaultValue("GETUTCDATE()");
-        entity.Property<DateTime>("UpdatedAt").IsRequired().HasDefaultValue("GETUTCDATE()");
+        entity.Property<DateTime>("CreatedAt").IsRequired().HasDefaultValueSql("GETUTCDATE()");
+        entity.Property<DateTime>("UpdatedAt").IsRequired().HasDefaultValueSql("GETUTCDATE()");
       
       });
     }

@@ -11,6 +11,8 @@
     public bool isActive => ExitTime == null;
     public TimeSpan? Duration => ExitTime.HasValue ? ExitTime.Value - EntryTime : null;
 
+    private VisitEntity() { }
+
     public VisitEntity(Guid personId, DateTime? entryTime = null)
     {
       if (personId == Guid.Empty)
