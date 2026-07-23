@@ -42,3 +42,59 @@ DELETE {{WebApi_HostAddress}}/api/persons/149114a1-0061-4fcc-a690-7e351f537ad2
 
 GET {{WebApi_HostAddress}}/api/persons/code/ABC122
 Accept: application/json
+
+###
+
+GET {{WebApi_HostAddress}}/api/visits
+Accept: application/json
+
+
+###
+
+POST {{WebApi_HostAddress}}/api/visits/entry
+Content-Type: application/json
+
+{
+  "personId": "a81c73cb-e69c-4aca-b39f-b29317db0287",
+  "entryTime": null
+}
+
+###
+
+POST {{WebApi_HostAddress}}/api/visits/entry
+Content-Type: application/json
+
+{
+  "code": "ABC123",
+  "entryTime": null
+}
+
+###
+
+GET {{WebApi_HostAddress}}/api/visits/active
+Accept: application/json
+
+###
+
+GET {{WebApi_HostAddress}}/api/visits/person/a81c73cb-e69c-4aca-b39f-b29317db0287
+Accept: application/json
+
+###
+
+POST {{WebApi_HostAddress}}/api/visits/exit
+Content-Type: application/json
+
+{
+  "visitId": "424a950f-e446-422b-9826-ea62e096c7f3",
+  "exitTime": null
+}
+
+###
+
+POST {{WebApi_HostAddress}}/api/visits/exit
+Content-Type: application/json
+
+{
+  "code": "ABC123",
+  "exitTime": null
+}

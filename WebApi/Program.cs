@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using Application.UseCases.Persons;
+using Application.UseCases.Visits;
 using Data;
 using Domain;
 using Domain.Abstractions;
@@ -23,6 +24,12 @@ builder.Services.AddScoped<GetAllPersonsUseCase>();
 builder.Services.AddScoped<UpdatePersonUseCase>();
 builder.Services.AddScoped<DeletePersonUseCase>();
 
+builder.Services.AddScoped<GetActiveVisitsUseCase>();
+builder.Services.AddScoped<GetAllVisitsUseCase>();
+builder.Services.AddScoped<GetVisitsByPersonUseCase>();
+builder.Services.AddScoped<RegisterEntryUseCase>();
+builder.Services.AddScoped<RegisterExitUseCase>();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -33,5 +40,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapPersonsEndpoints();
+app.MapVisitsEndpoints();
 
 app.Run();
