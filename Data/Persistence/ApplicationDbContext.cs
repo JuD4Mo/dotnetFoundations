@@ -10,6 +10,7 @@ namespace Data
     }
 
     public DbSet<PersonEntity> Persons {get; set;}
+    public DbSet<VisitEntity> Visits {get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -29,6 +30,32 @@ namespace Data
         entity.Ignore(e => e.FullName);
         entity.Property<DateTime>("CreatedAt").IsRequired().HasDefaultValueSql("GETUTCDATE()");
         entity.Property<DateTime>("UpdatedAt").IsRequired().HasDefaultValueSql("GETUTCDATE()");
+      });
+
+      modelBuilder.Entity<VisitEntity>(entity =>
+      {
+        entity.ToTable("Visits");
+        
+        entity.HasKey(e => e.Id);
+
+        entity.Property(e => e.Id).IsRequired().ValueGeneratedOnAdd();
+        entity.Property(e => e.PersonId).IsRequired();
+        entity.Property(e => e.EntryTime).IsRequired();
+        entity.Property(e => e.ExitTime).IsRequired();
+
+        entity.Ignore(e => e.isActive);
+        entity.Ignore(e => e.Duration);
+
+        entity.HasOne(e => e.Person)
+              .WithMany().HasForeignKey(e => e.PersonId).OnDelete(DeleteBehavior.Restrict);
+        
+        entity.HasIndex(e => e.PersonId);
+        entity.HasIndex(e => e.EntryTime);
+        entity.HasIndex(e => new {e.PersonId, e.ExitTime}); //composite index
+
+        entity.Property<DateTime>("CreatedAt").IsRequired().HasDefaultValue("GETUTCDATE()");
+        entity.Property<DateTime>("UpdatedAt").IsRequired().HasDefaultValue("GETUTCDATE()");
+      
       });
     }
 
